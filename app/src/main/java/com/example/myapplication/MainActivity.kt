@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.os.PersistableBundle
 import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.databinding.ActivityMainBinding
 import kotlinx.android.parcel.Parcelize
 import java.security.Key
@@ -14,16 +17,17 @@ import java.security.Key
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
     private lateinit var state: State
+    private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also{setContentView(it.root)}
 
-        binding.tabButton.setOnClickListener{ increment() }
 
+
+        binding.tabButton.setOnClickListener{ increment() }
         binding.button.setOnClickListener { decrement() }
 
         state = savedInstanceState?.getParcelable(KEY_STATE) ?: State(
